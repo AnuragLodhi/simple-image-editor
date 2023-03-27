@@ -1,0 +1,69 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 50px;
+  padding: 0 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.dimensions {
+  font-weight: 500;
+  color: #999;
+}
+
+.dimensions span {
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  width: 11ch;
+  text-align: center;
+  color: black;
+}
+
+.share-section button {
+  margin: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  width: 100px;
+  height: 30px;
+}
+
+main {
+  display: flex;
+  flex-grow: 1;
+  background-color: #999;
+}
+
+main div {
+  height: 100%;
+}
+
+.toolbar {
+  width: 100px;
+  background-color: #ccc;
+}
+
+.viewport {
+  flex-grow: 1;
+  background-color: #eee;
+}
+
+.tool-settings {
+  width: 300px;
+  background-color: #ccc;
+}
+
+.tool-name {
+  height: 50px;
+  border-bottom: 1px solid #eee;
+}
