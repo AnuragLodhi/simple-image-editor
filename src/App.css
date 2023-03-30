@@ -51,16 +51,19 @@ main div {
 .toolbar {
   width: 100px;
   background-color: #ccc;
+  flex-shrink: 0;
 }
 
 .viewport {
   flex-grow: 1;
   background-color: #eee;
+  flex-shrink: 1;
 }
 
 .tool-settings {
   width: 300px;
   background-color: #ccc;
+  flex-shrink: 0;
 }
 
 .tool-name {
