@@ -14,9 +14,17 @@ function selectTool(tool) {
   }
 }
 
+function Tool({ toolName , onClick, children}) {
+  return (
+    <>
+    <button className='tool' onClick={() => onClick(toolName)}>{children}</button>
+    </>
+  )
+}
+
 function App() {
   const [count, setCount] = useState(0)
-  const [tool, setTool] = useState('jdu');
+  const [tool, setTool] = useState('Select a tool');
   const [image, imageStatus] = useImage("/src/assets/cube.jpg");
   const [viewportDimensions, setViewportDimensions] = useState({ width: 0, height: 0 });
 
@@ -30,6 +38,11 @@ function App() {
   const handleResize = () => {
     const { width, height } = viewportRef.current.getBoundingClientRect();
     setViewportDimensions({ width, height });
+  }
+
+  const handleToolClick = (toolName) =>   {
+    console.log(toolName);
+    setTool(toolName);
   }
 
   useEffect(() => {
@@ -53,7 +66,11 @@ function App() {
       </header>
       <main>
         {/* <a href="https://dribbble.com/shots/20268513-Collaborative-Photo-Editing-Software-UI">helo</a> */}
-        <div className="toolbar"></div>
+        <div className="toolbar">
+          <Tool toolName='blur' onClick={handleToolClick} >Blur</Tool>
+          <Tool toolName='crop' onClick={handleToolClick}>Crop</Tool>
+          <Tool toolName='resize' onClick={handleToolClick}>Resize</Tool>
+        </div>
         <div className="viewport" ref={viewportRef}>
           {imageStatus === 'loaded' && (
             <Stage width={viewportDimensions.width} height={viewportDimensions.height}>
@@ -68,7 +85,7 @@ function App() {
           )}
         </div>
         <div className="tool-settings">
-          <div className='tool-name'>{selectTool(tool)}</div>
+          <div className='tool-name'>{tool.slice(0, 1).toUpperCase() + tool.slice(1)}</div>
         </div>
       </main>
     </div>
