@@ -52,12 +52,18 @@ main div {
   width: 100px;
   background-color: #ccc;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
 }
 
 .viewport {
   flex-grow: 1;
   background-color: #eee;
   flex-shrink: 1;
+  width: calc(100% - 400px);
+  height: calc(100vh - 50px);
 }
 
 .tool-settings {
@@ -67,6 +73,15 @@ main div {
 }
 
 .tool-name {
-  height: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
   border-bottom: 1px solid #eee;
+}
+
+.tool {
+  height: 40px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
 }
