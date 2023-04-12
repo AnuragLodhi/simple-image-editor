@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Image, Layer, Stage } from 'react-konva';
 import useImage from 'use-image';
+import { useDispatch, useSelector } from 'react-redux';
+import { change, decrement, increment } from './features/filter/filterSlice';
 
 function selectTool(tool) {
   switch (tool) {
@@ -14,10 +16,10 @@ function selectTool(tool) {
   }
 }
 
-function Tool({ toolName , onClick, children}) {
+function Tool({ toolName, onClick, children }) {
   return (
     <>
-    <button className='tool' onClick={() => onClick(toolName)}>{children}</button>
+      <button className='tool' onClick={() => onClick(toolName)}>{children}</button>
     </>
   )
 }
@@ -27,12 +29,17 @@ function App() {
   const [tool, setTool] = useState('Select a tool');
   const [image, imageStatus] = useImage("/src/assets/cube.jpg");
   const [viewportDimensions, setViewportDimensions] = useState({ width: 0, height: 0 });
+  const filter = useSelector(state => state.filter.value);
+  const dispatch = useDispatch();
 
   const viewportRef = useRef(null);
+  const imageRef = useRef();
 
   useEffect(() => {
     const { width, height } = viewportRef.current.getBoundingClientRect();
     setViewportDimensions({ width, height });
+
+    imageRef.current?.cache();
   }, []);
 
   const handleResize = () => {
@@ -40,7 +47,7 @@ function App() {
     setViewportDimensions({ width, height });
   }
 
-  const handleToolClick = (toolName) =>   {
+  const handleToolClick = (toolName) => {
     console.log(toolName);
     setTool(toolName);
   }
@@ -79,6 +86,9 @@ function App() {
                   image={image}
                   x={viewportDimensions.width / 2 - image.width / 2}
                   y={viewportDimensions.height / 2 - image.height / 2}
+                  filters={[Konva.Filters.Blur, Konva.Filters.Sepia]}
+                  blurRadius={filter.blur}
+                  ref={imageRef}
                 />
               </Layer>
             </Stage>
@@ -86,6 +96,7 @@ function App() {
         </div>
         <div className="tool-settings">
           <div className='tool-name'>{tool.slice(0, 1).toUpperCase() + tool.slice(1)}</div>
+          <input type="range" onChange={(e) => dispatch(change(parseInt(e.target.value)))} />
         </div>
       </main>
     </div>
