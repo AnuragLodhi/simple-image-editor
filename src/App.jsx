@@ -40,7 +40,7 @@ function App() {
     setViewportDimensions({ width, height });
 
     imageRef.current?.cache();
-  }, []);
+  }, [imageRef]);
 
   const handleResize = () => {
     const { width, height } = viewportRef.current.getBoundingClientRect();
@@ -86,8 +86,8 @@ function App() {
                   image={image}
                   x={viewportDimensions.width / 2 - image.width / 2}
                   y={viewportDimensions.height / 2 - image.height / 2}
-                  filters={[Konva.Filters.Blur, Konva.Filters.Sepia]}
-                  blurRadius={filter.blur}
+                  {...filter}
+                  // filters={[Konva.Filters.Noise]}
                   ref={imageRef}
                 />
               </Layer>
@@ -96,7 +96,8 @@ function App() {
         </div>
         <div className="tool-settings">
           <div className='tool-name'>{tool.slice(0, 1).toUpperCase() + tool.slice(1)}</div>
-          <input type="range" onChange={(e) => dispatch(change(parseInt(e.target.value)))} />
+          {/* <input type="range" onChange={(e) => dispatch(change(parseInt(e.target.value)))} /> */}
+          <button onClick={() => dispatch(old())}>Old</button>
         </div>
       </main>
     </div>
